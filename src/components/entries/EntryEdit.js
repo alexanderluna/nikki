@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 
-class EntryUpdate extends Component {
+class EntryEdit extends Component {
   render() {
     return (
       <div>
-        Update Entry
+        <h1>Edit Entry</h1>
       </div>
     )
   }
 }
 
-export default EntryUpdate
+export default EntryEdit
