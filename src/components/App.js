@@ -1,12 +1,24 @@
 import React from 'react';
+import { Router, Route, Switch } from 'react-router-dom';
+import Home from './Home';
+import EntryCreate from './entries/EntryCreate';
+import EntryDelete from './entries/EntryDelete';
+import EntryEdit from './entries/EntryEdit';
+import EntryIndex from './entries/EntryIndex';
+import EntryShow from './entries/EntryShow';
+import history from '../history';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className="App">
-      </div>
-    );
-  }
+export default function App() {
+  return (
+    <Router history={history}>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/create" component={EntryCreate} />
+        <Route exact path="/delete" component={EntryDelete} />
+        <Route exact path="/edit/:id" component={EntryEdit} />
+        <Route exact path="/index" component={EntryIndex} />
+        <Route exact path="/show/:id" component={EntryShow} />
+      </Switch>
+    </Router>
+  );
 }
-
-export default App;
