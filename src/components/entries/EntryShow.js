@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 
-class EntryShow extends Component {
-  render() {
-    return (
-      <div>
-        Show Entry
-      </div>
-    )
-  }
-}
+const EntryShow = ({ entry }) => (
+  <div>
+    {entry && <p>{entry.id}</p>}
+  </div>
+);
 
-export default EntryShow
+const mapStateToProps = (state, ownProps) => ({
+  entry: state.entries[ownProps.match.params.id],
+});
+
+export default connect(mapStateToProps)(EntryShow);
