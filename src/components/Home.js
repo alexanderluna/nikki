@@ -1,57 +1,41 @@
 import React, { Component } from 'react';
-import config from '../config';
+import { connect } from 'react-redux';
+import { importDiary } from '../actions';
+import './Home.css';
 
 class Home extends Component {
-  state = { isSignedIn: false }
-
-  componentDidMount() {
-    window.gapi.load('client:auth2', this.initClient);
+  importDiary = (data) => {
+    const diary = JSON.parse(data.target.result);
+    this.props.importDiary(diary);
   }
 
-  initClient = () => {
-    window.gapi.client.init({
-      apiKey: config.apiKey,
-      clientId: config.clientId,
-      discoveryDocs: config.discoveryDocs,
-      scope: config.scopes,
-    }).then(() => {
-      window.gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
-      this.updateSigninStatus(window.gapi.auth2.getAuthInstance().isSignedIn.get());
-    }, (error) => {
-      console.log(error.details);
-    });
-  };
+  readBackup = ({ target: { files } }) => {
+    if (!files[0]) return;
 
-  updateSigninStatus = (isSignedIn) => {
-    if (isSignedIn) {
-      this.fetchMajorData();
-    }
-    this.setState({ isSignedIn });
-  }
-
-  handleSignIn = () => window.gapi.auth2.getAuthInstance().signIn();
-
-  handleSignOut = () => window.gapi.auth2.getAuthInstance().signOut();
-
-  fetchMajorData = () => {
-    window.gapi.client.sheets.spreadsheets.values.get({
-      spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-      range: 'Class Data!A2:E',
-    }).then(response => console.log(response.result));
+    const reader = new FileReader();
+    reader.onload = this.importDiary;
+    reader.readAsText(files[0]);
   }
 
   render() {
-    const { isSignedIn } = this.state;
     return (
       <div>
         <h1>Home</h1>
-        {isSignedIn && <h2>Logged in</h2>}
-        {!isSignedIn && <h2>Logged out</h2>}
-        <button type="button" onClick={this.handleSignIn}>Sign in</button>
-        <button type="button" onClick={this.handleSignOut}>Sign out</button>
+        <label
+          className="upload"
+          htmlFor="upload"
+          onChange={this.readBackup}
+        >
+          <span aria-hidden="true" />
+          <input
+            className="upload"
+            type="file"
+            accept="application/json"
+          />
+        </label>
       </div>
     );
   }
 }
 
-export default Home;
+export default connect(null, { importDiary })(Home);
