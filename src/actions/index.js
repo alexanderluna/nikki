@@ -3,8 +3,6 @@ import {
   IMPORT_DIARY,
   CREATE_ENTRY,
   EDIT_ENTRY,
-  FETCH_ENTRY,
-  FETCH_ENTRIES,
   DELETE_ENTRY,
 } from './types';
 
@@ -29,19 +27,20 @@ export const createEntry = formValues => (dispatch) => {
   history.push('/index');
 };
 
-export const editEntry = formValues => (dispatch, getState) => {
-  dispatch({ type: EDIT_ENTRY, payload: formValues });
+export const editEntry = (id, formValues) => (dispatch) => {
+  const updatedAt = new Date();
+  dispatch({
+    type: EDIT_ENTRY,
+    payload: {
+      updatedAt,
+      ...formValues,
+      id,
+    },
+  });
   history.push('/index');
 };
 
-export const fetchEntry = id => (dispatch, getState) => {
-  dispatch({ type: FETCH_ENTRY, payload: id });
-};
-
-export const fetchEntries = () => (dispatch, getState) => {
-  dispatch({ type: FETCH_ENTRIES, payload: getState });
-};
-
-export const deleteEntry = id => (dispatch, getState) => {
+export const deleteEntry = id => (dispatch) => {
   dispatch({ type: DELETE_ENTRY, payload: id });
+  history.push('/index');
 };
