@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Header from './Header';
+import Backup from './Backup';
 import EntryCreate from './entries/EntryCreate';
 import EntryDelete from './entries/EntryDelete';
 import EntryEdit from './entries/EntryEdit';
@@ -15,10 +16,11 @@ export default function App() {
       <Router history={history}>
         <div className="">
           <Header />
+          <Backup />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/create" component={EntryCreate} />
-            <Route exact path="/delete" component={EntryDelete} />
+            <Route exact path="/delete/:id" component={EntryDelete} />
             <Route exact path="/edit/:id" component={EntryEdit} />
             <Route exact path="/index" component={EntryIndex} />
             <Route exact path="/show/:id" component={EntryShow} />
