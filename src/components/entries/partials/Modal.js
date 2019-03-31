@@ -1,27 +1,42 @@
 import React from 'react';
-import ReactDom from 'react-dom';
+import {
+  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+} from '@material-ui/core';
 
-const Modal = props => (
-  ReactDom.createPortal(
-    <div
-      className="ui dimmer modals visible active"
-      onClick={props.onDismiss}
-      onKeyDown={props.onDismiss}
-      role="presentation"
+const Modal = ({ handleClose, handleDelete, title, children }) => (
+  <div>
+    <Dialog
+      open
+      onClose={handleClose}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      <div
-        className="ui standard modal visible active"
-        onClick={e => e.stopPropagation()}
-        onKeyDown={e => e.stopPropagation()}
-        role="presentation"
-      >
-        <div className="header">{props.title}</div>
-        <div className="content">{props.content}</div>
-        <div className="actions">{props.actions}</div>
-      </div>
-    </div>,
-    document.querySelector('#modal'),
-  )
+      <DialogTitle id="alert-dialog-title">
+        {title}
+      </DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          {children}
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={handleClose}
+          color="primary"
+        >
+          Dismiss
+        </Button>
+        <Button
+          onClick={handleDelete}
+          color="secondary"
+          variant="contained"
+          autoFocus
+        >
+          Delete
+        </Button>
+      </DialogActions>
+    </Dialog>
+  </div>
 );
 
 export default Modal;
