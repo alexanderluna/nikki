@@ -19,6 +19,24 @@ const initialState = {
     content: '<b>Some bold text</b> and some <i>italic</i> text',
     id: '_oj5szl468',
   },
+  _oj5rezl468: {
+    createdAt: 'Thu Aug 08 2019 00:49:32 GMT+0200 (CEST)',
+    updatedAt: 'Thu Aug 08 2019 00:55:00 GMT+0200 (CEST)',
+    content: '<b>Some bold text</b> and some <i>italic</i> text',
+    id: '_oj5szl4f8',
+  },
+  _oj5tzl468: {
+    createdAt: 'Thu Aug 08 2019 00:49:32 GMT+0200 (CEST)',
+    updatedAt: 'Thu Aug 08 2019 00:55:00 GMT+0200 (CEST)',
+    content: '<b>Some bold text</b> and some <i>italic</i> text',
+    id: '_oj5fzl468',
+  },
+  _oj5shl468: {
+    createdAt: 'Thu Aug 08 2019 00:49:32 GMT+0200 (CEST)',
+    updatedAt: 'Thu Aug 08 2019 00:55:00 GMT+0200 (CEST)',
+    content: '<b>Some bold text</b> and some <i>italic</i> text',
+    id: '_oj5sfl468',
+  },
 };
 
 export default (state = initialState, action) => {
